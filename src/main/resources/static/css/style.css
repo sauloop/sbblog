@@ -1,8 +1,7 @@
-strong {
-	font-size: 16px;
-}
-
-.navlink {
+/* strong { */
+/* 	font-size: 18px; */
+/* } */
+.navlink, strong {
 	font-size: 18px;
 }
 

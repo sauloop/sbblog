@@ -17,7 +17,11 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	private static final String ENCODE_PASS = "$2a$04$iX3SyD79JwYpbHzLgSB72.plB4UsePN4SGbkCfJDoZ4FzbWQGbD5G";
+//	private static final String ENCODE_PASS = "$2a$04$iX3SyD79JwYpbHzLgSB72.plB4UsePN4SGbkCfJDoZ4FzbWQGbD5G";
+
+	private static final String USER = "fulano@email.com";
+
+	private static final String ENCODE_PASS = "$2a$04$Gk1RUqgQD2sLoyRve0ImvuZ7VhS9S8eV7T1sHvMTLGoXB75fevyY2";
 
 	String[] resources = new String[] { "/include/**", "/css/**", "/icons/**", "/img/**", "/js/**", "/layer/**",
 			"/pdf/**" };
@@ -29,9 +33,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.permitAll();
 	}
 
+//	@Override
+//	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//		auth.inMemoryAuthentication().passwordEncoder(passwordEncoder()).withUser("admin").password(ENCODE_PASS)
+//				.roles("USER");
+//	}
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().passwordEncoder(passwordEncoder()).withUser("admin").password(ENCODE_PASS)
+		auth.inMemoryAuthentication().passwordEncoder(passwordEncoder()).withUser(USER).password(ENCODE_PASS)
 				.roles("USER");
 	}
 
