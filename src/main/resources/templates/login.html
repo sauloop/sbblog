@@ -15,14 +15,14 @@
 						<h3>Iniciar sesión</h3>
 					</div>
 				</div>
-				<br>
+				<br />
 				<div class="alert alert-danger text-center" th:if="${param.error}">
 					<strong>Datos incorrectos.</strong>
 				</div>
 				<div class="alert alert-success text-center" th:if="${param.logout}">
 					<strong>Has cerrado sesión.</strong>
 				</div>
-				<br>
+				<br />
 				<div>
 					<form th:action="@{/login}" method="post">
 						<div class="form-group">
