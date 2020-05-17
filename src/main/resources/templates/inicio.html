@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+<title>Inicio | Pablo Giraldo</title>
+<th:block th:insert="base.html :: head">
+</th:block>
+</head>
+<body>
+	<div th:replace="base.html :: jumbo"></div>
+	<nav th:replace="base.html :: nav"></nav>
+	<div class="container" style="margin-top: 30px">
+		<div class="row">
+			<div class="col-sm-4">
+				<br>
+				<h3>Enlaces</h3>
+				<ul class="nav nav-pills flex-column">
+					<!-- <li class="nav-item">
+                        <a class="nav-link active" href="https://www.w3schools.com/default.asp">W3schools</a>
+                    </li> -->
+					<li class="nav-item"><a class="nav-link"
+						href="https://www.w3schools.com/default.asp">W3schools</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="https://pixabay.com/es/">Pixbay</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="https://icon-icons.com/es/">Iconos</a></li>
+					<!-- 					<li class="nav-item"><a class="nav-link" -->
+					<!-- 						href="https://www.easyredmine.com/">Redmine</a></li> -->
+					<li class="nav-item"><a class="nav-link"
+						href="https://fonts.google.com/">Google Fonts</a></li>
+				</ul>
+				<hr class="d-sm-none">
+			</div>
+
+			<div class="col-sm-8">
+				<br>
+
+				<div class="mt-4" th:each="article:${articles}">
+					<p th:text="${article.title}"></p>
+					<br>
+					<div class="fakeimg" th:if="${article.image!=''}">
+						<img class="float-left ml-1" th:src="@{'img/'+${article.image}}"
+							th:alt="${article.image}" style="max-width: 100%; height: auto;" />
+					</div>
+				</div>
+
+				<br> <br> <br>
+			</div>
+		</div>
+	</div>
+	<footer th:replace="base.html :: footer"></footer>
+</body>
+</html>

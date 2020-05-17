@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Login</title>
+</head>
+<body>
+	<div class="container" style="margin-top: 30px">
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="mt-4" th:if="${param.error}">Datos incorrectos.</div>
+				<div class="mt-4" th:if="${param.logout}">Has cerrado sesión.</div>
+
+				<div class="mt-4">
+					<form th:action="@{/login}" method="post">
+						<div>
+							<label> Usuario : </label><input type="text" name="username" />
+
+						</div>
+						<div>
+							<label> Contraseña: </label><input type="password"
+								name="password" />
+
+						</div>
+						<br>
+						<div class="mt-4">
+							<input type="submit" value="Iniciar sesión" />
+						</div>
+					</form>
+				</div>
+
+				<br>
+				<div class="mt-4">
+					<a th:href="@{/}">Inicio</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
