@@ -7,5 +7,5 @@ import info.pablogiraldo.sbblog.entity.Article;
 
 @Repository
 public interface IArticleRepository extends CrudRepository<Article, Long> {
-
+	public Iterable<Article> findAllByOrderByIdDesc();
 }

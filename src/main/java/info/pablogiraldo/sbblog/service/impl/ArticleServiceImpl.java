@@ -16,7 +16,9 @@ public class ArticleServiceImpl implements IArticleService {
 	@Override
 	public Iterable<Article> listArticles() {
 
-		return articleRepository.findAll();
+//		return articleRepository.findAll();
+
+		return articleRepository.findAllByOrderByIdDesc();
 	}
 
 	@Override
