@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.validator.constraints.Length;
+
 @Entity
 @Table(name = "articles")
 public class Article implements Serializable {
@@ -19,10 +21,15 @@ public class Article implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotEmpty
+	@Length(min = 1, max = 255)
 	private String title;
+	@Length(min = 0, max = 255)
 	private String subtitle;
+	@Length(min = 0, max = 255)
 	private String image;
+	@Length(min = 0, max = 255)
 	private String link;
+	@Length(min = 0, max = 500)
 	private String text;
 
 	public Article() {

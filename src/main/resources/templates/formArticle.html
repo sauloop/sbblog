@@ -31,8 +31,7 @@
 						</form>
 					</div>
 				</div>
-				<br />
-				<br />
+				<br /> <br />
 				<div class="d-flex justify-content-between">
 					<div>
 						<a th:href="@{/admin}"><strong>Administrar</strong></a>
@@ -44,7 +43,7 @@
 				<br /> <br />
 				<div>
 					<form action="#" th:action="@{/admin/articles/formarticle}"
-						th:object="${article}" method="post">
+						th:object="${article}" method="post" id="artform">
 
 						<div class="form-group">
 							<label for="title"><strong>Título</strong></label> <input
@@ -79,7 +78,8 @@
 						<div class="form-group">
 							<label for="text"><strong>Texto</strong></label>
 							<textarea name="text" class="form-control" id="text"
-								th:field="*{text}" th:errorclass="'form-control alert-danger'"></textarea>
+								th:field="*{text}" th:errorclass="'form-control alert-danger'"
+								form="artform" maxlength="500"></textarea>
 							<br> <small class="form-text text-danger"
 								th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></small>
 						</div>
