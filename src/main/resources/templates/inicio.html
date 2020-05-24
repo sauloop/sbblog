@@ -25,7 +25,7 @@
 				<hr class="d-sm-none">
 			</div>
 
-			<div class="col-sm-8 mt-3">
+			<div class="col-sm-8 mt-3 mb-4">
 				<div class="mb-4" th:each="article:${articles}">
 					<div>
 						<h2 th:text="${article.title}"></h2>
@@ -57,7 +57,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 	<footer th:replace="base.html :: footer"></footer>
 </body>
