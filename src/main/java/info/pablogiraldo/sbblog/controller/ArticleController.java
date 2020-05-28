@@ -35,7 +35,7 @@ public class ArticleController {
 	@GetMapping("")
 	public String listArticles(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
 
-		Pageable articlePageable = PageRequest.of(page, 2);
+		Pageable articlePageable = PageRequest.of(page, 4);
 		Page<Article> articles = articleJpaRepository.findAllByOrderByIdDesc(articlePageable);
 		RenderizadorPaginas<Article> renderizadorPaginas = new RenderizadorPaginas<Article>(
 				"http://www.pablogiraldo.info/", articles);
