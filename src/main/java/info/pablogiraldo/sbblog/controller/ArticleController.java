@@ -5,16 +5,22 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import info.pablogiraldo.sbblog.entity.Article;
+import info.pablogiraldo.sbblog.repository.IArticleJpaRepository;
 import info.pablogiraldo.sbblog.service.IArticleService;
+import info.pablogiraldo.sbblog.utils.RenderizadorPaginas;
 
 @Controller
 @RequestMapping("/")
@@ -23,10 +29,19 @@ public class ArticleController {
 	@Autowired
 	private IArticleService articleService;
 
-	@GetMapping("")
-	public String listArticles(Model model) {
+	@Autowired
+	private IArticleJpaRepository articleJpaRepository;
 
-		model.addAttribute("articles", articleService.listArticles());
+	@GetMapping("")
+	public String listArticles(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
+
+		Pageable articlePageable = PageRequest.of(page, 2);
+		Page<Article> articles = articleJpaRepository.findAllByOrderByIdDesc(articlePageable);
+		RenderizadorPaginas<Article> renderizadorPaginas = new RenderizadorPaginas<Article>("", articles);
+
+		model.addAttribute("renpag", renderizadorPaginas);
+		model.addAttribute("articles", articles);
+
 		return "inicio";
 	}
 
@@ -65,21 +80,5 @@ public class ArticleController {
 
 		return "redirect:/admin/articles/formarticle";
 	}
-
-//	@PostMapping("/formestudiante")
-//	public String addEstudiante(@Valid Estudiante estudiante, BindingResult result, Map<String, Object> model,
-//			RedirectAttributes flash) {
-//
-//		if (result.hasErrors()) {
-//			model.put("estudiante", estudiante);
-//			model.put("titulo", "Nuevo estudiante");
-//			return "formEstudiante";
-//		}
-//
-//		estudianteService.addEstudiante(estudiante);
-//		flash.addFlashAttribute("success", "Estudiante guardado con éxito.");
-//
-//		return "redirect:/estudiantes/formestudiante";
-//	}
 
 }
