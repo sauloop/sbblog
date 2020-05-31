@@ -61,24 +61,19 @@ public class ArticleController {
 	}
 
 	@GetMapping("/admin/articles/adminarticles")
-	public String adminArticles(Model model) {
-		model.addAttribute("articles", articleService.listArticles());
+	public String adminArticles(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
+
+		Pageable articlePageable = PageRequest.of(page, 10);
+
+		Page<Article> articles = articleService.listArticles(articlePageable);
+
+		RenderizadorPaginas<Article> renderizadorPaginas = new RenderizadorPaginas<Article>("", articles);
+
+		model.addAttribute("renpag", renderizadorPaginas);
+		model.addAttribute("articles", articles);
+
 		return "adminArticles";
 	}
-
-//	@GetMapping("/admin/articles/adminarticles")
-//	public String adminArticles(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
-//
-//		Pageable articlePageable = PageRequest.of(page, 10);
-//
-//		Page<Article> articles = articleService.listArticles(articlePageable);
-//		RenderizadorPaginas<Article> renderizadorPaginas = new RenderizadorPaginas<Article>("", articles);
-//
-//		model.addAttribute("renpag", renderizadorPaginas);
-//
-//		model.addAttribute("articles", articles);
-//		return "adminArticles";
-//	}
 
 	@GetMapping("/login")
 	public String login() {
@@ -86,7 +81,7 @@ public class ArticleController {
 	}
 
 	@GetMapping("/admin/articles/formarticle")
-	public String userForm(Model model, @RequestParam(name = "id", required = true) long id) {
+	public String formArticle(Model model, @RequestParam(name = "id", required = true) long id) {
 
 		Article article = new Article();
 
@@ -114,9 +109,10 @@ public class ArticleController {
 	}
 
 	@GetMapping("/admin/articles/delete/{id}")
-	public String borrar(@PathVariable("id") long id, Model model) {
+	public String deleteArticle(@PathVariable("id") long id, Model model) {
 		articleService.deleteArticle(id);
 		model.addAttribute("articles", articleService.listArticles());
-		return "adminArticles";
+
+		return "redirect:/admin/articles/adminarticles";
 	}
 }
