@@ -30,12 +30,12 @@
 				<br />
 				<div class="mb-4" th:each="article:${articles}">
 					<div>
-						<h2 th:text="${article.title}"></h2>
+						<h2 class="word-break" th:text="${article.title}"></h2>
 					</div>
 
 					<div class="mt-2"
 						th:style="${article.subtitle!='' ? 'display:block' : 'display:none'}">
-						<h5 th:text="${article.subtitle}"></h5>
+						<h5 class="word-break" th:text="${article.subtitle}"></h5>
 					</div>
 
 					<div class="fakeimg mt-4"
@@ -46,13 +46,14 @@
 
 					<div class="mt-5"
 						th:style="${article.link!='' ? 'display:block' : 'display:none'}">
-						<a th:href="@{${article.link}}" th:text="${article.link}" /></a>
+						<a class="word-break" th:href="@{${article.link}}"
+							th:text="${article.link}" /></a>
 					</div>
 					<br />
 
 					<div class="mt-4 mb-1"
 						th:style="${article.text!='' ? 'display:block' : 'display:none'}">
-						<p th:text="${article.text}"></p>
+						<p class="word-break" th:text="${article.text}"></p>
 					</div>
 					<br />
 				</div>

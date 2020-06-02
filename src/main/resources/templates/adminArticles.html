@@ -57,7 +57,9 @@
 						</thead>
 						<tbody>
 							<tr data-th-each="article : ${articles}">
-								<td data-th-text="${article.title}"></td>
+								<td><div>
+										<p class="word-break" th:text="${article.title}"></p>
+									</div></td>
 								<td><a href="#"
 									th:href="@{/admin/articles/formarticle?id=__${article.id}__}"><strong>Editar</strong></a></td>
 								<td><a

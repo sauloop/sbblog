@@ -99,7 +99,8 @@ public class ArticleController {
 	@PostMapping("/admin/articles/addarticle")
 	public String addArticle(@Valid Article article, BindingResult result, Model model) {
 		if (result.hasErrors()) {
-			model.addAttribute("article", new Article());
+			// model.addAttribute("article", new Article());
+			model.addAttribute("article", article);
 			return "formArticle";
 		}
 
