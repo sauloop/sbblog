@@ -1,5 +1,6 @@
 package info.pablogiraldo.sbblog.controller;
 
+import java.util.Date;
 import java.util.Optional;
 
 import javax.servlet.ServletContext;
@@ -92,6 +93,13 @@ public class ArticleController {
 			article = artOp.get();
 		}
 
+		else {
+
+			Date date = new Date();
+
+			article.setDay(date);
+		}
+
 		model.addAttribute("article", article);
 		return "formArticle";
 	}
@@ -99,7 +107,6 @@ public class ArticleController {
 	@PostMapping("/admin/articles/addarticle")
 	public String addArticle(@Valid Article article, BindingResult result, Model model) {
 		if (result.hasErrors()) {
-			// model.addAttribute("article", new Article());
 			model.addAttribute("article", article);
 			return "formArticle";
 		}
