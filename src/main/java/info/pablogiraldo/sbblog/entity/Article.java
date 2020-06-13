@@ -1,25 +1,25 @@
 package info.pablogiraldo.sbblog.entity;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "articles")
-public class Article implements Serializable {
+public class Article implements Serializable, Comparable<Article> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -27,28 +27,31 @@ public class Article implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotEmpty
-	@Length(min = 2, max = 255)
+	@Size(min = 2, max = 255)
 	private String title;
 
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date day;
 
-	@Length(min = 0, max = 255)
+	@Size(min = 0, max = 255)
 	private String subtitle;
-	@Length(min = 0, max = 255)
+	@Size(min = 0, max = 255)
 	private String image;
-	@Length(min = 0, max = 255)
+	@Size(min = 0, max = 255)
 	private String link;
-	@Length(min = 0, max = 500)
+	@Size(min = 0, max = 500)
 	private String text;
+
+	@ManyToOne
+	private Category category;
 
 	public Article() {
 	}
 
 	public Article(Long id, @NotEmpty @Length(min = 2, max = 255) String title, Date day,
 			@Length(min = 0, max = 255) String subtitle, @Length(min = 0, max = 255) String image,
-			@Length(min = 0, max = 255) String link, @Length(min = 0, max = 500) String text) {
+			@Length(min = 0, max = 255) String link, @Length(min = 0, max = 500) String text, Category category) {
 		this.id = id;
 		this.title = title;
 		this.day = day;
@@ -56,6 +59,7 @@ public class Article implements Serializable {
 		this.image = image;
 		this.link = link;
 		this.text = text;
+		this.category = category;
 	}
 
 	public Long getId() {
@@ -113,4 +117,19 @@ public class Article implements Serializable {
 	public void setText(String text) {
 		this.text = text;
 	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	@Override
+	public int compareTo(Article comparearticle) {
+		Long compareids = ((Article) comparearticle).getId();
+		return (int) (compareids - this.id);
+	}
+
 }

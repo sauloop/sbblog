@@ -1,9 +1,9 @@
 package info.pablogiraldo.sbblog.controller;
 
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
-
-import javax.servlet.ServletContext;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +14,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import info.pablogiraldo.sbblog.entity.Article;
+import info.pablogiraldo.sbblog.entity.Category;
 import info.pablogiraldo.sbblog.service.IArticleService;
+import info.pablogiraldo.sbblog.service.ICategoryService;
 import info.pablogiraldo.sbblog.utils.RenderizadorPaginas;
 
 @Controller
@@ -31,7 +34,7 @@ public class ArticleController {
 	private IArticleService articleService;
 
 	@Autowired
-	ServletContext context;
+	private ICategoryService categoryService;
 
 	@GetMapping("")
 	public String listArticles(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
@@ -49,6 +52,34 @@ public class ArticleController {
 		model.addAttribute("articles", articles);
 
 		return "inicio";
+	}
+
+	@GetMapping("/formsearch")
+	public String formSearch(Model model) {
+		model.addAttribute("category", new Category());
+		model.addAttribute("categories", categoryService.listCategories());
+
+		return "formSearch";
+	}
+
+	@GetMapping("/search")
+	public String searchByCategory(@RequestParam String name, Model model,
+			@ModelAttribute("category") Category category) {
+
+		if (name == "") {
+
+			return "redirect:/formsearch";
+
+		} else {
+			Category cat = categoryService.findCategoryByName(name);
+			List<Article> articles = cat.getArticles();
+			Collections.sort(articles);
+
+			model.addAttribute("categories", categoryService.listCategories());
+			model.addAttribute("articles", articles);
+
+			return "formSearch";
+		}
 	}
 
 	@GetMapping("/trueknic")
@@ -101,6 +132,7 @@ public class ArticleController {
 		}
 
 		model.addAttribute("article", article);
+		model.addAttribute("categories", categoryService.listCategories());
 		return "formArticle";
 	}
 
