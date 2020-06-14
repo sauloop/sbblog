@@ -2,7 +2,6 @@ package info.pablogiraldo.sbblog.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,8 +12,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -49,9 +46,10 @@ public class Article implements Serializable, Comparable<Article> {
 	public Article() {
 	}
 
-	public Article(Long id, @NotEmpty @Length(min = 2, max = 255) String title, Date day,
-			@Length(min = 0, max = 255) String subtitle, @Length(min = 0, max = 255) String image,
-			@Length(min = 0, max = 255) String link, @Length(min = 0, max = 500) String text, Category category) {
+	public Article(Long id, @NotEmpty @Size(min = 2, max = 255) String title, Date day,
+			@Size(min = 0, max = 255) String subtitle, @Size(min = 0, max = 255) String image,
+			@Size(min = 0, max = 255) String link, @Size(min = 0, max = 500) String text, Category category) {
+
 		this.id = id;
 		this.title = title;
 		this.day = day;

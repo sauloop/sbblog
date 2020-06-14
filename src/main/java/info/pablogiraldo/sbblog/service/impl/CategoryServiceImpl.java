@@ -1,12 +1,10 @@
 package info.pablogiraldo.sbblog.service.impl;
 
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import info.pablogiraldo.sbblog.entity.Category;
 import info.pablogiraldo.sbblog.repository.ICategoryRepository;
 import info.pablogiraldo.sbblog.service.ICategoryService;
@@ -25,8 +23,7 @@ public class CategoryServiceImpl implements ICategoryService {
 
 	@Override
 	public Page<Category> listCategories(Pageable categoryPageable) {
-		// TODO Auto-generated method stub
-		return null;
+		return categoryRepository.findAllByOrderByIdDesc(categoryPageable);
 	}
 
 	@Override
@@ -37,14 +34,13 @@ public class CategoryServiceImpl implements ICategoryService {
 
 	@Override
 	public Optional<Category> findCategoryById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+
+		return categoryRepository.findById(id);
 	}
 
 	@Override
 	public void deleteCategory(long id) {
-		// TODO Auto-generated method stub
-
+		categoryRepository.deleteById(id);
 	}
 
 	@Override
