@@ -26,7 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/", "/trueknic", "/formsearch", "/search").permitAll().anyRequest().authenticated().and()
 				.formLogin().loginPage("/login").permitAll().and().logout().permitAll();
 
-//		http.requiresChannel().requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null).requiresSecure();
+		http.requiresChannel().requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null).requiresSecure();
 	}
 
 	@Override
