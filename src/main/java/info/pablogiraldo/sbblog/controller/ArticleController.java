@@ -43,10 +43,10 @@ public class ArticleController {
 
 		Page<Article> articles = articleService.listArticles(articlePageable);
 //		local
-//		RenderizadorPaginas<Article> renderizadorPaginas = new RenderizadorPaginas<Article>("", articles);
+		RenderizadorPaginas<Article> renderizadorPaginas = new RenderizadorPaginas<Article>("/", articles);
 
-		RenderizadorPaginas<Article> renderizadorPaginas = new RenderizadorPaginas<Article>(
-				"http://www.pablogiraldo.info/", articles);
+//		RenderizadorPaginas<Article> renderizadorPaginas = new RenderizadorPaginas<Article>(
+//				"http://www.pablogiraldo.info/", articles);
 
 		model.addAttribute("renpag", renderizadorPaginas);
 		model.addAttribute("articles", articles);
