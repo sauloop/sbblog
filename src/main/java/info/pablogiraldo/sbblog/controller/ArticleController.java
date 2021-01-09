@@ -27,7 +27,7 @@ import info.pablogiraldo.sbblog.service.ICategoryService;
 import info.pablogiraldo.sbblog.utils.RenderizadorPaginas;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("")
 public class ArticleController {
 
 	@Autowired
@@ -43,7 +43,7 @@ public class ArticleController {
 
 		Page<Article> articles = articleService.listArticles(articlePageable);
 
-		RenderizadorPaginas<Article> renderizadorPaginas = new RenderizadorPaginas<Article>("/", articles);
+		RenderizadorPaginas<Article> renderizadorPaginas = new RenderizadorPaginas<Article>("", articles);
 
 		model.addAttribute("renpag", renderizadorPaginas);
 		model.addAttribute("articles", articles);
